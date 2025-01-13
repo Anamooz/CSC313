@@ -1,7 +1,30 @@
 import './style.css';
-import {Map, View} from 'ol';
+import {Feature, Map, View} from 'ol';
 import TileLayer from 'ol/layer/Tile';
 import OSM from 'ol/source/OSM';
+import Point from 'ol/geom/Point.js';
+import sourceLayer from 'ol/source/Vector';
+import VectorLayer from 'ol/layer/Vector';
+
+const home = new Feature({ 
+  geometry: new Point([-120.426636, 34.948991])
+});
+
+const family = new Feature({ 
+  geometry: new Point([-122.275085, 37.847748])
+});
+
+const friends = new Feature({ 
+  geometry: new Point([-120.657349, 35.277016])
+});
+
+const vectorSource = new sourceLayer({
+  features: [home, family, friends],
+});
+
+const markedVectorLayer = new VectorLayer({
+  source: vectorSource,
+});
 
 const map = new Map({
   target: 'map',
@@ -11,8 +34,11 @@ const map = new Map({
     })
   ],
   view: new View({
-    center: [1000, 1000],
-    zoom: 2.5
+    center: [-121, 36],
+    zoom: 7,
+    projection: 'EPSG:4326'
   })
 });
+
+map.addLayer(markedVectorLayer);
 

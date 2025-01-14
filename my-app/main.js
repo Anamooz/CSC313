@@ -1,11 +1,11 @@
 import './style.css';
 import {Feature, Map, View} from 'ol';
 import TileLayer from 'ol/layer/Tile';
-import OSM from 'ol/source/OSM';
 import Point from 'ol/geom/Point.js';
 import sourceLayer from 'ol/source/Vector';
 import VectorLayer from 'ol/layer/Vector';
 import {Circle, Fill, Stroke, Style} from 'ol/style.js';
+import XYZ from 'ol/source/XYZ';
 
 const home = new Feature({ 
   geometry: new Point([-120.426636, 34.948991]),
@@ -68,7 +68,9 @@ const map = new Map({
   target: 'map',
   layers: [
     new TileLayer({
-      source: new OSM()
+      source: new XYZ({
+        url: 'https://{a-c}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+      })
     })
   ],
   view: new View({
